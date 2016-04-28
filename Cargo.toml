@@ -1,0 +1,9 @@
+[package]
+name = "tabbed_text"
+version = "0.1.0"
+authors = ["Lolirofle <lolipopple@hotmail.com>"]
+
+[dependencies]
+docopt = "*"
+docopt_macros = "*"
+rustc-serialize = "*"
