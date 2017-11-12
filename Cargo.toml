@@ -4,6 +4,5 @@ version = "0.1.0"
 authors = ["Lolirofle <lolipopple@hotmail.com>"]
 
 [dependencies]
-docopt = "*"
-docopt_macros = "*"
-rustc-serialize = "*"
+structopt = "0.1"
+structopt-derive = "0.1"

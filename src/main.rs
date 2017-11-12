@@ -1,27 +1,18 @@
 #![feature(io,plugin)]
 
-#![plugin(docopt_macros)]
-extern crate docopt;
-extern crate rustc_serialize;
+extern crate structopt;
+#[macro_use]extern crate structopt_derive;
 
 mod cli;
 
 use std::fs::File;
 use std::io::{self,Read,Write};
+use structopt::StructOpt;
 
 //TODO: Implementing `flag_section_title_prefix` needs to buffer the previous line
 
 fn main(){
-	let mut args: cli::Args = match cli::Args_docopt().decode(){
-		Ok(args) => args,
-		Err(docopt::Error::WithProgramUsage(_,usage)) |
-		Err(docopt::Error::Usage(usage))              => {
-			println!("{}",usage);
-			return;
-		},
-		e => e.unwrap()
-	};
-
+	let mut args: cli::Args = cli::Args::from_args();
 	let     input  = io::stdin();
 	let mut output = io::stdout();
 
@@ -64,6 +55,7 @@ fn main(){
 				tabs_current+= 1;
 			},
 			Some(Ok('\n')) => {
+				write!(output,"{}{}",args.flag_section_suffix,args.flag_section_prefix).unwrap();
 				continue 'Lines;
 			},
 			Some(chr) => {
