@@ -9,6 +9,8 @@ mod cli;
 use std::fs::File;
 use std::io::{self,Read,Write};
 
+//TODO: Implementing `flag_section_title_prefix` needs to buffer the previous line
+
 fn main(){
 	let mut args: cli::Args = match cli::Args_docopt().decode(){
 		Ok(args) => args,
@@ -25,10 +27,11 @@ fn main(){
 
 	if args.flag_file{
 		//Prepare cached versions of the files
-		if args.flag_entry_prefix   != ""{File::open(&args.flag_entry_prefix).unwrap().read_to_string(&mut args.flag_entry_prefix).unwrap();}
-		if args.flag_entry_suffix   != ""{File::open(&args.flag_entry_suffix).unwrap().read_to_string(&mut args.flag_entry_suffix).unwrap();}
-		if args.flag_section_prefix != ""{File::open(&args.flag_section_prefix).unwrap().read_to_string(&mut args.flag_section_prefix).unwrap();}
-		if args.flag_section_suffix != ""{File::open(&args.flag_section_suffix).unwrap().read_to_string(&mut args.flag_section_suffix).unwrap();}
+		if args.flag_entry_prefix         != ""{let mut file = File::open(&args.flag_entry_prefix).unwrap();        args.flag_entry_prefix.clear();        file.read_to_string(&mut args.flag_entry_prefix).unwrap();}
+		if args.flag_entry_suffix         != ""{let mut file = File::open(&args.flag_entry_suffix).unwrap();        args.flag_entry_suffix.clear();        file.read_to_string(&mut args.flag_entry_suffix).unwrap();}
+		if args.flag_section_title_prefix != ""{let mut file = File::open(&args.flag_section_title_prefix).unwrap();args.flag_section_title_prefix.clear();file.read_to_string(&mut args.flag_section_title_prefix).unwrap();}
+		if args.flag_section_prefix       != ""{let mut file = File::open(&args.flag_section_prefix).unwrap();      args.flag_section_prefix.clear();      file.read_to_string(&mut args.flag_section_prefix).unwrap();}
+		if args.flag_section_suffix       != ""{let mut file = File::open(&args.flag_section_suffix).unwrap();      args.flag_section_suffix.clear();      file.read_to_string(&mut args.flag_section_suffix).unwrap();}
 	}
 
 	//Prefix

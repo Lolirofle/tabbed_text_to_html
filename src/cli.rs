@@ -9,21 +9,23 @@ docopt!(pub Args derive Debug,concat!("
 Usage: tabbed_text [options]
 	   tabbed_text --help
 
-Formats a text file with the indentation (tabs) indicating sections and each line indicating a new entry
+Formats a text file with the indentation (tabs) indicating sections and each line indicating a new entry.
+Reads from stdin and writes to stdout.
 
 Options:
-  -h, --help            Show this message
-  --file                Make the prefix and suffix flags take filepaths instead of strings
-  --prefix=STR          Output string prefix for the output [default: DEFAULT]
-  --suffix=STR          Output string suffix for the output [default: ]
-  --section-prefix=STR  Output string prefix for a section [default: <div>]
-  --section-suffix=STR  Output string suffix for a section [default: </div>]
-  --entry-prefix=STR    Output string prefix for a section [default: <p>]
-  --entry-suffix=STR    Output string suffix for a section [default: </p>]
+  -h, --help                 Show this message
+  --file                     Make the prefix and suffix flags take filepaths instead of strings
+  --prefix=STR               Output string prefix for the output [default: DEFAULT]
+  --suffix=STR               Output string suffix for the output [default: ]
+  --section-title-prefix=STR Output string prefix for a section title [default: <div>]
+  --section-prefix=STR       Output string prefix for a section [default: <div>]
+  --section-suffix=STR       Output string suffix for a section [default: </div>]
+  --entry-prefix=STR         Output string prefix for a section [default: <p>]
+  --entry-suffix=STR         Output string suffix for a section [default: </p>]
 "),
-	flag_file: bool,
 	flag_prefix: String,
 	flag_suffix: String,
+	flag_section_title_prefix: String,
 	flag_section_prefix: String,
 	flag_section_suffix: String,
 	flag_entry_prefix: String,
